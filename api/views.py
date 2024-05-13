@@ -104,8 +104,8 @@ def process_document(s3json):
             print("Use the subscribe URL to proceed with the subscription");
             return;
     
-    s3 = json.loads(message)
-    print("S3 ", s3);
+    s3 = json.loads(nmsgjson['Message'])
+    print("S3 Message ", s3);
     
     if 'Records' not in s3:
         return
