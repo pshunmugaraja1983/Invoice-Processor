@@ -16,9 +16,9 @@ import datetime
 import mysql.connector
 
 
-hostname = 'localhost'
-username = 'admin'
-password = 'mypassword_11'
+hostname = '52.201.229.57'
+username = 'root'
+password = 'mypassword_12345'
 database = 'invoice'
 
 s3_target_bucket = 'jc-target-invoice-11-june-2023'
