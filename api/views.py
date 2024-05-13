@@ -16,7 +16,7 @@ import datetime
 import mysql.connector
 
 
-hostname = '52.201.229.57'
+hostname = 'database-1.cyowj4hdsjxf.us-east-1.rds.amazonaws.com'
 username = 'root'
 password = 'mypassword_12345'
 database = 'invoice'
