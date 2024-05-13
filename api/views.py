@@ -153,7 +153,7 @@ def create_table():
     print ('Creating table invoice')
     
     try:
-        conn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
+        conn = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database, auth_plugin='mysql_native_password')
         cur = conn.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS invoice (cust_id VARCHAR(255), inv_id VARCHAR(255))")
         cur.close()
