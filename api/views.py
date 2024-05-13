@@ -87,12 +87,21 @@ def process_document(s3json):
     nmsgjson = json.loads(s3json)
     print("JSON", nmsgjson);
     
-    if "Type" in nmsgjson:    
-        message_type = nmsgjson['Type'];
+    if "SubscriptionConfirmation" in nmsgjson:    
+        message_type = nmsgjson['SubscriptionConfirmation'];
         
-        if (message_type == "Notification"):
-            print("Message Type is NOTIFICATION");
-            print("No further processing needed");
+        if (message_type == "SubscriptionConfirmation"):
+            print("Message Type is SubscriptionConfirmation");
+            
+            subscriber_url = nmsgjson["SubscribeURL"]
+            print("Subscriber URL is the following");
+            print("--------------------------");
+            
+            print(subscriber_url);
+
+            print("--------------------------");
+            
+            print("Use the subscribe URL to proceed with the subscription");
             return;
     
     s3 = json.loads(message)
