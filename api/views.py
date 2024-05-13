@@ -87,8 +87,8 @@ def process_document(s3json):
     nmsgjson = json.loads(s3json)
     print("JSON", nmsgjson);
     
-    if "SubscriptionConfirmation" in nmsgjson:    
-        message_type = nmsgjson['SubscriptionConfirmation'];
+    if "Type" in nmsgjson:    
+        message_type = nmsgjson['Type'];
         
         if (message_type == "SubscriptionConfirmation"):
             print("Message Type is SubscriptionConfirmation");
