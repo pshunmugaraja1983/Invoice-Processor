@@ -15,13 +15,15 @@ import boto3
 import datetime
 import mysql.connector
 
+import os
 
-hostname = 'database-1.cyowj4hdsjxf.us-east-1.rds.amazonaws.com'
-username = 'root'
-password = 'mypassword_12345'
-database = 'invoice'
 
-s3_target_bucket = 'doc-processor-target-invoice-bucket-may-2024'
+hostname = os.environ.get("INV_PROC_APP_DB_SERVER", 'undefined')
+username = os.environ.get("INV_PROC_APP_DB_USERNAME", 'undefined')
+password = os.environ.get("INV_PROC_APP_DB_PASSWORD", 'undefined')
+database = os.environ.get("INV_PROC_APP_DB_NAME", 'undefined')
+
+s3_target_bucket = os.environ.get("INV_PROC_APP_S3_TARGET_BUCKET_NAME", 'undefined')
 
 
 # *******************************************************************************************************************
@@ -31,14 +33,26 @@ s3_target_bucket = 'doc-processor-target-invoice-bucket-may-2024'
 #CSRF is needed for the SNS to make a call from another domain
 @csrf_exempt
 def message(request):
+
+    print_configurations();
+
     print ('*********************** Incoming request *****************************')
-    print_request(request)
+    # print_request(request)
     #SNS http end point will have the notification details in the body
     #Check the http header and see if the sns header details are present, if so proceed else throw except
     process_document(request.body)
     return HttpResponse('API invoked; your http record is now saved.')
 
 
+
+def print_configurations():
+
+  print("Application configured with the following properties")
+  print("INV_PROC_APP_DB_SERVER -> ", hostname);
+  print("INV_PROC_APP_DB_USERNAME -> ", username);
+  print("INV_PROC_APP_DB_PASSWORD -> ", password);
+  print("INV_PROC_APP_DB_NAME -> ", database);
+  print("INV_PROC_APP_S3_TARGET_BUCKET_NAME -> ", s3_target_bucket);
 
 #Credit https://gist.github.com/defrex/6140951
 def print_request(request):
@@ -83,6 +97,8 @@ def print_request(request):
 # *******************************************************************************************************************
 def process_document(s3json):
     #print('The S3 JSON is ', s3json)
+    
+    print ("Incoming Message -> ", s3json)
     
     nmsgjson = json.loads(s3json)
     print("JSON", nmsgjson);
