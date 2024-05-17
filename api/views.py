@@ -17,9 +17,9 @@ import mysql.connector
 
 
 hostname = 'database-1.cyowj4hdsjxf.us-east-1.rds.amazonaws.com'
-username = 'root'
-password = 'mypassword_12345'
-database = 'invoice'
+username = 'admin'
+password = 'password'
+database = 'invoice_db'
 
 s3_target_bucket = 'doc-processor-target-invoice-bucket-may-2024'
 
